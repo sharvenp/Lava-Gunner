@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour {
     //Other
     private Rigidbody rb;
 
+	public float maxMag = 10f;
+
     //Rotation and look
     private float xRotation;
     private float sensitivity = 50f;
@@ -74,12 +76,18 @@ public class PlayerMovement : MonoBehaviour {
         y = Input.GetAxisRaw("Vertical");
         jumping = Input.GetButton("Jump");
         crouching = Input.GetKey(KeyCode.LeftControl);
-      
-        //Crouching
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            StartCrouch();
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-            StopCrouch();
+
+		// adds a speed limit
+		if (rb.velocity.magnitude > maxMag)
+		{
+			rb.velocity = rb.velocity.normalized * maxMag;
+		}
+
+        ////Crouching
+        //if (Input.GetKeyDown(KeyCode.LeftControl))
+        //    StartCrouch();
+        //if (Input.GetKeyUp(KeyCode.LeftControl))
+        //    StopCrouch();
     }
 
     private void StartCrouch() {
