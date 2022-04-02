@@ -9,7 +9,6 @@ public class CameraControls : MonoBehaviour
 
 	public Transform player;
 	private float x = 0f;
-	private float y = 0f;
 
     // Start is called before the first frame update
     void Start()
