@@ -27,7 +27,6 @@ public class PlayerMovementContoller: MonoBehaviour
 	private CharacterController ctrl;
 	private Vector3 velocity;
 	[SerializeField] private bool isGrounded = false;
-	[SerializeField] private bool isGrappling = false;
 
 	private Rigidbody rb;
 
@@ -43,13 +42,11 @@ public class PlayerMovementContoller: MonoBehaviour
     {
 		if (Input.GetMouseButtonDown(0))
 		{
-			isGrappling = true;
 			ctrl.enabled = false;
 			StartGrapple();
 		}
 		else if (Input.GetMouseButtonUp(0))
 		{
-			isGrappling = false;
 			ctrl.enabled = true;
 			StopGrapple();
 		}
