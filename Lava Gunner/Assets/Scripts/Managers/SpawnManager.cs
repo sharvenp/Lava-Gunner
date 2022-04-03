@@ -29,7 +29,6 @@ public class SpawnManager : MonoBehaviour
     {
         while (gameStateManager.gameState == GameStateManager.gameStates.running)
         {
-            print("starting coroutine");
             Spawn(470);
             yield return new WaitForSeconds(spawnDelay);
         }
