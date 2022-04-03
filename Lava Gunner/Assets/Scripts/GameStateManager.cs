@@ -7,16 +7,20 @@ public class GameStateManager : MonoBehaviour
 
     public GameObject retryPanel;
     public AudioManager audioManager;
+    public ObjectPooler pooler;
 
     private int gameState = 0; // 0 - running, 1 - lost, 2 - win
     public int numWins;
+    public float cubeFallSpeedWinDelta;
 
 	private void Awake()
 	{
         gameState = 0;
         retryPanel.SetActive(gameState == 1);
         numWins = 0;
-	}
+        cubeFallSpeedWinDelta = 10f;
+
+    }
 
 	private void Start()
     {
@@ -30,7 +34,7 @@ public class GameStateManager : MonoBehaviour
 		{
             // TODO: restart the game
 		}
-	}
+    }
 
 	public void LoseGame()
     {
@@ -45,5 +49,10 @@ public class GameStateManager : MonoBehaviour
         gameState = 2;
         numWins += 1;
         audioManager.PlayBGM(numWins);
+        foreach (GameObject obj in pooler.poolDictionary["Cube"])
+        {
+            Cube cube = obj.GetComponent<Cube>();
+            cube.fallSpeed += cubeFallSpeedWinDelta;
+        }
 	}
 }
