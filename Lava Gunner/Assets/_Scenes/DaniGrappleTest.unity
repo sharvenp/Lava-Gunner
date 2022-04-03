@@ -636,7 +636,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 1bbe4fd81ce08a24d8aaa9f839a97b3e, type: 2}
+  sharedProfile: {fileID: 11400000, guid: bd098bb2f98adfe419f3efa8bc1247bf, type: 2}
 --- !u!4 &1160234427
 Transform:
   m_ObjectHideFlags: 0
@@ -1676,6 +1676,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3286399444581776462, guid: 5ec2c23795018974a81fc52035e18917,
+        type: 3}
+      propertyPath: postProcessingVolume
+      value: 
+      objectReference: {fileID: 1160234426}
     - target: {fileID: 3286399444581776463, guid: 5ec2c23795018974a81fc52035e18917,
         type: 3}
       propertyPath: m_RootOrder

@@ -2,6 +2,8 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -13,6 +15,10 @@ public class PlayerMovement : MonoBehaviour {
 
     //Audio
     public AudioSource windAudioSource;
+
+    //Post-processing
+    public Volume postProcessingVolume;
+    private ChromaticAberration aberration;
 
     //Other
     private Rigidbody rb;
@@ -63,7 +69,10 @@ public class PlayerMovement : MonoBehaviour {
         Cursor.visible = false;
 
         // start playing the wind sound
+        windAudioSource.loop = true;
         windAudioSource.Play();
+
+        postProcessingVolume.profile.TryGet(out aberration);
     }
 
     
@@ -78,7 +87,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void LateUpdate()
 	{
-        PlayWindAudio();
+        MovementEffects();
 	}
 
 	/// <summary>
@@ -103,14 +112,15 @@ public class PlayerMovement : MonoBehaviour {
         //    StopCrouch();
     }
 
-    private void PlayWindAudio()
+    private void MovementEffects()
 	{
-        float lerpVol = 0f;
+        float normalizedVelocityMagnitude = 0f;
         if (!grounded)
 		{
-			lerpVol = Mathf.Clamp01(rb.velocity.magnitude / maxMag);
+            normalizedVelocityMagnitude = Mathf.Clamp01(rb.velocity.magnitude / maxMag);
 		}
-        windAudioSource.volume = Mathf.Lerp(windAudioSource.volume, lerpVol, 0.05f);
+        windAudioSource.volume = Mathf.Lerp(windAudioSource.volume, normalizedVelocityMagnitude, 0.05f);
+        aberration.intensity.value = Mathf.Lerp(aberration.intensity.value, normalizedVelocityMagnitude, 0.05f);
     }
 
     private void StartCrouch() {
