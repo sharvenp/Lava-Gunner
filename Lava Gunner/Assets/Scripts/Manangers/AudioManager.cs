@@ -5,6 +5,8 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    public const string BGM = "bgm";
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -20,15 +22,31 @@ public class AudioManager : MonoBehaviour
             sound.audioSource.loop = sound.loop;
         }
 
-        Play("bgm");
+        Play(BGM);
+    }
+
+
+    public void PlayBGM(int pitchLevel)
+    {
+        SetPitch(BGM, Mathf.Min(2, 1f + 0.1f * pitchLevel));
+    }
+
+    public void SetPitch(string name, float pitch)
+    {
+        Sound s = GetSound(name);
+        s.pitch = pitch;
+        s.audioSource.pitch = pitch;
     }
 
     // Update is called once per frame
     public void Play(string name)
     {
-        Debug.Log("test");
-        Sound s = Array.Find<Sound>(sounds, sound => sound.name == name);
-        Debug.Log(s.name);
+        Sound s = GetSound(name);
         s.audioSource.Play();
+    }
+
+    private Sound GetSound(String name)
+    {
+        return Array.Find<Sound>(sounds, sound => sound.name == name);
     }
 }
