@@ -477,9 +477,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   retryPanel: {fileID: 215484826}
-  cube: {fileID: 255029771363844536, guid: 4d89a0d962a312c48abd38c721c0a726, type: 3}
-  audioManager: {fileID: 0}
+  audioManager: {fileID: 1009653800}
+  pooler: {fileID: 1776197761}
   numWins: 0
+  cubeFallSpeedWinDelta: 0
 --- !u!1 &699824360
 GameObject:
   m_ObjectHideFlags: 0
