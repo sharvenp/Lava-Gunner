@@ -17,7 +17,7 @@ public class Lava : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, endPos, lavaSpeed);
+        transform.position += Vector3.up*lavaSpeed*Time.deltaTime;
     }
 
 	private void OnCollisionEnter(Collision collision)
