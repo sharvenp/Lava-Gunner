@@ -16,6 +16,7 @@ public class GrapplingGun : MonoBehaviour {
 
     public AudioSource gunAudioSource;
     public AudioClip gunSound;
+    public ParticleSystem muzzleFlash;
 
     private float nextTimeToFire = 0f;
 
@@ -45,6 +46,7 @@ public class GrapplingGun : MonoBehaviour {
     void StartGrapple() {
 
         gunAudioSource.PlayOneShot(gunSound);
+        muzzleFlash.Play();
 
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance, whatIsGrappleable)) {
