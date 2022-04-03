@@ -8,7 +8,12 @@ public class PlayerMovement : MonoBehaviour {
     //Assingables
     public Transform playerCam;
     public Transform orientation;
-    
+
+    public GrapplingGun grapplingGun;
+
+    //Audio
+    public AudioSource windAudioSource;
+
     //Other
     private Rigidbody rb;
 
@@ -56,6 +61,9 @@ public class PlayerMovement : MonoBehaviour {
         playerScale =  transform.localScale;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        // start playing the wind sound
+        windAudioSource.Play();
     }
 
     
@@ -68,10 +76,15 @@ public class PlayerMovement : MonoBehaviour {
         Look();
     }
 
-    /// <summary>
-    /// Find user input. Should put this in its own class but im lazy
-    /// </summary>
-    private void MyInput() {
+	private void LateUpdate()
+	{
+        PlayWindAudio();
+	}
+
+	/// <summary>
+	/// Find user input. Should put this in its own class but im lazy
+	/// </summary>
+	private void MyInput() {
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
         jumping = Input.GetButton("Jump");
@@ -88,6 +101,16 @@ public class PlayerMovement : MonoBehaviour {
         //    StartCrouch();
         //if (Input.GetKeyUp(KeyCode.LeftControl))
         //    StopCrouch();
+    }
+
+    private void PlayWindAudio()
+	{
+        float lerpVol = 0f;
+        if (!grounded)
+		{
+			lerpVol = Mathf.Clamp01(rb.velocity.magnitude / maxMag);
+		}
+        windAudioSource.volume = Mathf.Lerp(windAudioSource.volume, lerpVol, 0.05f);
     }
 
     private void StartCrouch() {
