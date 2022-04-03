@@ -12,17 +12,24 @@ public class GrapplingGun : MonoBehaviour {
 	public float spring;
 	public float damper;
 	public float mass;
+    public float fireRate;
 
+    public AudioSource gunAudioSource;
+    public AudioClip gunSound;
 
-	void Awake() {
+    private float nextTimeToFire = 0f;
+
+    void Awake() {
         lr = GetComponent<LineRenderer>();
     }
 
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && Time.time >= nextTimeToFire) {
+            nextTimeToFire = Time.time + 1f / fireRate;
             StartGrapple();
         }
-        else if (Input.GetMouseButtonUp(0)) {
+        
+        if (Input.GetMouseButtonUp(0)) {
             StopGrapple();
         }
     }
@@ -36,6 +43,9 @@ public class GrapplingGun : MonoBehaviour {
     /// Call whenever we want to start a grapple
     /// </summary>
     void StartGrapple() {
+
+        gunAudioSource.PlayOneShot(gunSound);
+
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance, whatIsGrappleable)) {
             grapplePoint = hit.point;
