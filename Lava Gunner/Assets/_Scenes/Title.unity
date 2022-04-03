@@ -433,8 +433,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a729ea1f08b5a69479d8efdd5f25bd6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateManager: {fileID: 0}
   minHeight: 100
   maxHeight: 470
+  spawnDelay: 0.01
+  xRange: 40
+  yRange: 40
 --- !u!4 &862145309
 Transform:
   m_ObjectHideFlags: 0
@@ -751,7 +755,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: bd098bb2f98adfe419f3efa8bc1247bf, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 278d6e934521bc146a548b1aa2690e2e, type: 2}
 --- !u!4 &1160234427
 Transform:
   m_ObjectHideFlags: 0
