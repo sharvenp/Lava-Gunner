@@ -1027,22 +1027,6 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 1030474063}
-    - target: {fileID: 968237785, guid: 5ec2c23795018974a81fc52035e18917, type: 3}
-      propertyPath: mass
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 968237785, guid: 5ec2c23795018974a81fc52035e18917, type: 3}
-      propertyPath: damper
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 968237785, guid: 5ec2c23795018974a81fc52035e18917, type: 3}
-      propertyPath: maxDist
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 968237785, guid: 5ec2c23795018974a81fc52035e18917, type: 3}
-      propertyPath: minDist
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3286399444581776456, guid: 5ec2c23795018974a81fc52035e18917, type: 3}
       propertyPath: m_Name
       value: Player

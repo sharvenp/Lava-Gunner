@@ -5971,7 +5971,7 @@ MonoBehaviour:
   orientation: {fileID: 3286399444024000221}
   grapplingGun: {fileID: 0}
   windAudioSource: {fileID: 1223969761}
-  maxMag: 20
+  maxMag: 30
   moveSpeed: 4500
   maxSpeed: 20
   grounded: 0

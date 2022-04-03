@@ -18,7 +18,7 @@ public class GameStateManager : MonoBehaviour
         gameState = 0;
         retryPanel.SetActive(gameState == 1);
         numWins = 0;
-        cubeFallSpeedWinDelta = 10f;
+        cubeFallSpeedWinDelta = 50f;
 
     }
 
@@ -34,6 +34,10 @@ public class GameStateManager : MonoBehaviour
 		{
             // TODO: restart the game
 		}
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            WinGame();
+        }
     }
 
 	public void LoseGame()
