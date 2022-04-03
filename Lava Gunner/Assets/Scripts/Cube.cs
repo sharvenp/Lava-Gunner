@@ -15,5 +15,9 @@ public class Cube : MonoBehaviour
     void Update()
     {
         transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+        if (transform.position.y <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
