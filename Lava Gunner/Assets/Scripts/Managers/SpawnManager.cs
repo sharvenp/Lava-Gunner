@@ -6,14 +6,34 @@ public class SpawnManager : MonoBehaviour
 {
 
     ObjectPooler objectPooler;
+    public GameStateManager gameStateManager;
     float prevY = 0.0f;
 
     public float minHeight = 0.0f;
     public float maxHeight = 470.0f;
+    public float spawnDelay = 0.01f;
+    public float xRange = 40f;
+    public float yRange = 40f;
 
     private float deltaHeight;
     private float numOfObjects;
     private float nY;
+
+    private void Spawn(float height)
+    {
+        float randomPosX = Random.Range(-xRange, xRange);
+        float randomPosZ = Random.Range(-yRange, yRange);
+        objectPooler.SpawnFromPool("Cube", new Vector3(randomPosX, height, randomPosZ));
+    }
+    IEnumerator SpawnCube()
+    {
+        while (gameStateManager.gameState == GameStateManager.gameStates.running)
+        {
+            print("starting coroutine");
+            Spawn(470);
+            yield return new WaitForSeconds(spawnDelay);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,18 +45,11 @@ public class SpawnManager : MonoBehaviour
 
         for (int i = 0; i < objectPooler.pools[0].size; i++)
         {
-            float randomPosX = Random.Range(-40, 40);
-            float randomPosZ = Random.Range(-40, 40);
-            objectPooler.SpawnFromPool("Cube", new Vector3(randomPosX, prevY, randomPosZ));
+            Spawn(prevY);
             prevY += nY;
         }
+
+        StartCoroutine(SpawnCube());
     }
-
-    private void Update()
-    {
-
-    }
-
-
 
 }

@@ -9,14 +9,16 @@ public class GameStateManager : MonoBehaviour
     public AudioManager audioManager;
     public ObjectPooler pooler;
 
-    private int gameState = 0; // 0 - running, 1 - lost, 2 - win
+    public gameStates gameState = 0; // 0 - running, 1 - lost, 2 - win
     public int numWins;
     public float cubeFallSpeedWinDelta;
+
+    public enum gameStates { running, lost, win }
 
 	private void Awake()
 	{
         gameState = 0;
-        retryPanel.SetActive(gameState == 1);
+        retryPanel.SetActive(gameState == gameStates.lost);
         numWins = 0;
         cubeFallSpeedWinDelta = 50f;
 
@@ -25,12 +27,12 @@ public class GameStateManager : MonoBehaviour
 	private void Start()
     {
         gameState = 0;
-        retryPanel.SetActive(gameState == 1);
+        retryPanel.SetActive(gameState == gameStates.lost);
     }
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.R) && gameState == 1)
+		if (Input.GetKeyDown(KeyCode.R) && gameState == gameStates.lost)
 		{
             // TODO: restart the game
 		}
@@ -42,7 +44,7 @@ public class GameStateManager : MonoBehaviour
 
 	public void LoseGame()
     {
-        gameState = 1;
+        gameState = gameStates.lost;
         numWins = 0;
 
         retryPanel.SetActive(true);
@@ -50,7 +52,7 @@ public class GameStateManager : MonoBehaviour
 
     public void WinGame()
 	{
-        gameState = 2;
+        //gameState = gameStates.win;
         numWins += 1;
         audioManager.PlayBGM(numWins);
         foreach (GameObject obj in pooler.poolDictionary["Cube"])
