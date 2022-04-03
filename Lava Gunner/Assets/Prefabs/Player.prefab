@@ -85,7 +85,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c44eeea68de56fa4681fd6bd9ca78939, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   gunTip: {fileID: 530308470}
-  camera: {fileID: 3286399443419433128}
+  cam: {fileID: 3286399443419433128}
   player: {fileID: 3286399444581776463}
   maxDistance: 1000
   spring: 15
@@ -249,7 +249,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c44eeea68de56fa4681fd6bd9ca78939, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
