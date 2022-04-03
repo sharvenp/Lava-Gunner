@@ -16,13 +16,19 @@ public class GrapplingGun : MonoBehaviour {
 	public float minDist;
 	public float maxDist;
 
+    Animator gunAnimator;
     public AudioSource gunAudioSource;
     public AudioClip gunSound;
     public ParticleSystem muzzleFlash;
 
     private float nextTimeToFire = 0f;
 
-    void Update() {
+	private void Start()
+	{
+        gunAnimator = GetComponent<Animator>();
+	}
+
+	void Update() {
         if (Input.GetMouseButtonDown(0) && Time.time >= nextTimeToFire) {
             nextTimeToFire = Time.time + 1f / fireRate;
             StartGrapple();
@@ -38,6 +44,7 @@ public class GrapplingGun : MonoBehaviour {
     /// </summary>
     void StartGrapple() {
 
+        gunAnimator.Play("Shoot", 0, 0);
         gunAudioSource.PlayOneShot(gunSound);
         muzzleFlash.Play();
 
