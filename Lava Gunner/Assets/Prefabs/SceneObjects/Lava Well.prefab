@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1719625240}
   - component: {fileID: 1719625239}
   - component: {fileID: 1719625238}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 8688901162552479373}
   - component: {fileID: 8688901162552479372}
   - component: {fileID: 8688901162552479375}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 4, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8688901162652261802
 GameObject:
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 8688901162652261806}
   - component: {fileID: 8688901162652261801}
   - component: {fileID: 8688901162652261800}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8688901163062804113
 GameObject:
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 8688901163062804117}
   - component: {fileID: 8688901163062804116}
   - component: {fileID: 8688901163062804119}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8688901163200514793
 GameObject:
@@ -512,7 +512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8688901163200514798}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lava Well
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 8688901163267396803}
   - component: {fileID: 8688901163267396802}
   - component: {fileID: 8688901163267396829}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +635,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 4, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3323335867138523337
 PrefabInstance:
@@ -650,11 +650,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2512926734165838149, guid: 339166ba91915ea4da2c2a5c302b230d, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2707437230792017520, guid: 339166ba91915ea4da2c2a5c302b230d, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2996130841869538303, guid: 339166ba91915ea4da2c2a5c302b230d, type: 3}
       propertyPath: m_RootOrder
@@ -714,11 +714,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5639865567670806171, guid: 339166ba91915ea4da2c2a5c302b230d, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8120811191119647592, guid: 339166ba91915ea4da2c2a5c302b230d, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 339166ba91915ea4da2c2a5c302b230d, type: 3}
