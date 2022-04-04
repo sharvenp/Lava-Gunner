@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody rb;
 
 	public float maxMag = 10f;
-	public float fallingModifier = 2f;
     //Rotation and look
     private float xRotation;
     private float sensitivity = 50f;
@@ -36,6 +35,7 @@ public class PlayerMovement : MonoBehaviour {
     
     //Movement
     public float moveSpeed = 4500;
+	public float flightMult = 2f;
     public float maxSpeed = 20;
     public bool grounded;
     public LayerMask whatIsGround;
@@ -88,9 +88,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if (gameManager.gameState == GameStateManager.gameStates.running)
 		{
-            Movement();
-        }
-        //CheckGroundPhys();
+			MovePos();
+			CheckGroundPhys();
+		}
     }
 
     private void Update() {
@@ -109,6 +109,26 @@ public class PlayerMovement : MonoBehaviour {
         }
 	}
 
+	private void MovePos()
+	{
+		//Vector3 newPos = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+		Vector3 forwardVector = orientation.transform.forward * y * Time.deltaTime;
+		Vector3 tangentVector = orientation.transform.right * x * Time.deltaTime;
+
+		Vector3 newPos = forwardVector + tangentVector;
+		newPos = newPos.normalized * moveSpeed;
+
+		if (!grounded)
+		{
+			newPos = newPos * flightMult;
+		}
+
+		rb.MovePosition(transform.position + newPos);
+
+		//If holding jump && ready to jump, then jump
+		if (readyToJump && jumping) Jump();
+	}
+
 	/// <summary>
 	/// Find user input. Should put this in its own class but im lazy
 	/// </summary>
@@ -123,12 +143,6 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			rb.velocity = rb.velocity.normalized * maxMag;
 		}
-
-        ////Crouching
-        //if (Input.GetKeyDown(KeyCode.LeftControl))
-        //    StartCrouch();
-        //if (Input.GetKeyUp(KeyCode.LeftControl))
-        //    StopCrouch();
     }
 
     private void MovementEffects()
@@ -140,67 +154,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
         windAudioSource.volume = Mathf.Lerp(windAudioSource.volume, normalizedVelocityMagnitude, 0.05f);
         aberration.intensity.value = Mathf.Lerp(aberration.intensity.value, normalizedVelocityMagnitude, 0.05f);
-    }
-
-    private void StartCrouch() {
-        transform.localScale = crouchScale;
-        transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
-        if (rb.velocity.magnitude > 0.5f) {
-            if (grounded) {
-                rb.AddForce(orientation.transform.forward * slideForce);
-            }
-        }
-    }
-
-    private void StopCrouch() {
-        transform.localScale = playerScale;
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-    }
-
-    private void Movement() {
-        //Extra gravity
-        rb.AddForce(Vector3.down * Time.deltaTime * 10);
-        
-        //Find actual velocity relative to where player is looking
-        Vector2 mag = FindVelRelativeToLook();
-        float xMag = mag.x, yMag = mag.y;
-
-        //Counteract sliding and sloppy movement
-        CounterMovement(x, y, mag);
-        
-        //If holding jump && ready to jump, then jump
-        if (readyToJump && jumping) Jump();
-
-        //Set max speed
-        float maxSpeed = this.maxSpeed;
-        
-        //If sliding down a ramp, add force down so player stays grounded and also builds speed
-        if (crouching && grounded && readyToJump) {
-            rb.AddForce(Vector3.down * Time.deltaTime * 3000);
-            return;
-        }
-        
-        //If speed is larger than maxspeed, cancel out the input so you don't go over max speed
-        if (x > 0 && xMag > maxSpeed) x = 0;
-        if (x < 0 && xMag < -maxSpeed) x = 0;
-        if (y > 0 && yMag > maxSpeed) y = 0;
-        if (y < 0 && yMag < -maxSpeed) y = 0;
-
-        //Some multipliers
-        float multiplier = 1f, multiplierV = 1f;
-        
-        // Movement in air
-        if (!grounded) {
-            multiplier *= fallingModifier;
-            multiplierV *= fallingModifier;
-        }
-        
-        // Movement while sliding
-        if (grounded && crouching) multiplierV = 0f;
-
-        //Apply forces to move player
-        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier);
-        rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
     }
 
     private void Jump() {
@@ -326,12 +279,12 @@ public class PlayerMovement : MonoBehaviour {
     private void StopGrounded() {
         grounded = false;
     }
-    
-	//private void CheckGroundPhys()
-	//{
-	//	if (Physics.OverlapSphere(feet.position, groundThreshold, whatIsGround).Length > 0)
-	//	{
-	//		grounded = true;
-	//	}
-	//}
+
+	private void CheckGroundPhys()
+	{
+		if (Physics.OverlapSphere(feet.position, groundThreshold, whatIsGround).Length > 0)
+		{
+			grounded = true;
+		}
+	}
 }

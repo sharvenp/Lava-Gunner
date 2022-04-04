@@ -5610,7 +5610,7 @@ MonoBehaviour:
   postProcessingVolume: {fileID: 0}
   maxMag: 30
   fallingModifier: 2
-  moveSpeed: 4500
+  moveSpeed: 0.75
   maxSpeed: 20
   grounded: 0
   whatIsGround:
