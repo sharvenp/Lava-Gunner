@@ -63,6 +63,8 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 normalVector = Vector3.up;
     private Vector3 wallNormalVector;
 
+    private GameStateManager gameManager;
+
     void Awake() {
         rb = GetComponent<Rigidbody>();
     }
@@ -77,22 +79,34 @@ public class PlayerMovement : MonoBehaviour {
         windAudioSource.Play();
 
         postProcessingVolume.profile.TryGet(out aberration);
+
+        gameManager = FindObjectOfType<GameStateManager>();
     }
 
     
     private void FixedUpdate() {
-        Movement();
-		//CheckGroundPhys();
+
+        if (gameManager.gameState == GameStateManager.gameStates.running)
+		{
+            Movement();
+        }
+        //CheckGroundPhys();
     }
 
     private void Update() {
-        MyInput();
-        Look();
+        if (gameManager.gameState == GameStateManager.gameStates.running)
+        {
+            MyInput();
+            Look();
+        }
 	}
 
 	private void LateUpdate()
 	{
-        MovementEffects();
+        if (gameManager.gameState == GameStateManager.gameStates.running)
+        {
+            MovementEffects();
+        }
 	}
 
 	/// <summary>

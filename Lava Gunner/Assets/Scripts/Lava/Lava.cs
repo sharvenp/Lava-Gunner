@@ -10,14 +10,18 @@ public class Lava : MonoBehaviour
 
     public GameStateManager gameManager;
 
+    private bool isMoving;
+
     private void Start()
     {
+        isMoving = true;
         transform.position = startingPos;
     }
 
     private void Update()
     {
-        transform.position += Vector3.up*lavaSpeed*Time.deltaTime;
+        if (isMoving)
+            transform.position += Vector3.up * lavaSpeed * Time.deltaTime;
     }
 
 	private void OnCollisionEnter(Collision collision)
@@ -26,6 +30,7 @@ public class Lava : MonoBehaviour
 		{
             // end the game
             gameManager.LoseGame();
+            isMoving = false;
 		}
 	}
 }

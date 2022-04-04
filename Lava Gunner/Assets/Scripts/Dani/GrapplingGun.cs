@@ -21,21 +21,30 @@ public class GrapplingGun : MonoBehaviour {
     public AudioClip gunSound;
     public ParticleSystem muzzleFlash;
 
+    private GameStateManager gameManager;
+
     private float nextTimeToFire = 0f;
 
 	private void Start()
 	{
         gunAnimator = GetComponent<Animator>();
-	}
+        gameManager = FindObjectOfType<GameStateManager>();
+    }
 
-	void Update() {
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextTimeToFire) {
-            nextTimeToFire = Time.time + 1f / fireRate;
-            StartGrapple();
-        }
-        
-        if (Input.GetMouseButtonUp(0)) {
-            StopGrapple();
+    void Update() {
+
+        if (gameManager.gameState == GameStateManager.gameStates.running)
+        {
+            if (Input.GetMouseButtonDown(0) && Time.time >= nextTimeToFire)
+            {
+                nextTimeToFire = Time.time + 1f / fireRate;
+                StartGrapple();
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                StopGrapple();
+            }
         }
     }
 

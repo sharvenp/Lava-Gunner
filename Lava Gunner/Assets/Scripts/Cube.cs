@@ -5,28 +5,35 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     public float fallSpeed;
-    // Start is called before the first frame update
-    void Start()
+
+	private GameStateManager gameManager;
+
+	// Start is called before the first frame update
+	void Start()
     {
         fallSpeed = 5f;
-    }
+		gameManager = FindObjectOfType<GameStateManager>();
+	}
 
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position += Vector3.down * fallSpeed * Time.deltaTime;
-        if (transform.position.y <= 0)
-        {
-			// remove any children before recycling cube
-			if (transform.childCount > 0)
+		if (gameManager.gameState == GameStateManager.gameStates.running)
+		{
+			transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+			if (transform.position.y <= 0)
 			{
-				foreach (Transform t in transform)
+				// remove any children before recycling cube
+				if (transform.childCount > 0)
 				{
-					t.parent = null;
+					foreach (Transform t in transform)
+					{
+						t.parent = null;
+					}
 				}
+				gameObject.SetActive(false);
 			}
-            gameObject.SetActive(false);
-        }
+		}
     }
 
 	// handle player being on top of this by parenting player to this object

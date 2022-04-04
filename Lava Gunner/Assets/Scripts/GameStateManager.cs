@@ -1,45 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
+    public GameObject player;
+    public Vector3 playerStartPos;
+    public GameObject lava;
 
     public GameObject retryPanel;
+    public GameObject msgPanel;
     public AudioManager audioManager;
     public ObjectPooler pooler;
+
+    public TextMeshProUGUI levelText;
 
     public gameStates gameState = 0; // 0 - running, 1 - lost, 2 - win
     public int numWins;
     public float cubeFallSpeedWinDelta;
+    public float lavaRiseSpeedDelta;
 
     public enum gameStates { running, lost, win }
 
-	private void Awake()
-	{
-        gameState = 0;
-        retryPanel.SetActive(gameState == gameStates.lost);
-        numWins = 0;
-        cubeFallSpeedWinDelta = 50f;
+    private ScoreManager scoreManager;
 
+    private void Awake()
+	{
+        gameState = gameStates.running;
+        retryPanel.SetActive(false);
+        msgPanel.SetActive(false);
+        numWins = 0;
+        cubeFallSpeedWinDelta = 0.1f;
     }
 
 	private void Start()
     {
-        gameState = 0;
-        retryPanel.SetActive(gameState == gameStates.lost);
+        gameState = gameStates.running;
+        retryPanel.SetActive(false);
+        msgPanel.SetActive(false);
+        numWins = 0;
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
-	private void Update()
+    private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.R) && gameState == gameStates.lost)
 		{
-            // TODO: restart the game
+            // reload the scene
+            SceneManager.LoadScene(1);
 		}
-        if (Input.GetKeyDown(KeyCode.B))
+        /*if (Input.GetKeyDown(KeyCode.B))
         {
             WinGame();
-        }
+        }*/
     }
 
 	public void LoseGame()
@@ -48,10 +61,14 @@ public class GameStateManager : MonoBehaviour
         numWins = 0;
 
         retryPanel.SetActive(true);
+        scoreManager.StopTimer();
     }
 
     public void WinGame()
 	{
+        msgPanel.SetActive(true);
+        msgPanel.GetComponent<Animator>().Play("FlashMessage", 0, 0f);
+
         //gameState = gameStates.win;
         numWins += 1;
         audioManager.PlayBGM(numWins);
@@ -60,5 +77,19 @@ public class GameStateManager : MonoBehaviour
             Cube cube = obj.GetComponent<Cube>();
             cube.fallSpeed += cubeFallSpeedWinDelta;
         }
-	}
+
+        levelText.text = $"LVL {numWins}";
+
+        // reset the lava
+        lava.transform.position = lava.GetComponent<Lava>().startingPos;
+        lava.GetComponent<Lava>().lavaSpeed += lavaRiseSpeedDelta;
+
+        // reset the player
+        player.transform.position = playerStartPos;
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        scoreManager.StopTimer();
+        scoreManager.StartTimer();
+    }
 }
