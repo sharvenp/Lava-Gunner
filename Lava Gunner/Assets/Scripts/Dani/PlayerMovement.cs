@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour {
     public Transform playerCam;
     public Transform orientation;
 
+	// ground detection for falling objects
+	public Transform feet;
+	public float groundThreshold = 0.15f;
+	
     public GrapplingGun grapplingGun;
 
     //Audio
@@ -24,7 +28,7 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody rb;
 
 	public float maxMag = 10f;
-
+	public float fallingModifier = 2f;
     //Rotation and look
     private float xRotation;
     private float sensitivity = 50f;
@@ -78,12 +82,13 @@ public class PlayerMovement : MonoBehaviour {
     
     private void FixedUpdate() {
         Movement();
+		//CheckGroundPhys();
     }
 
     private void Update() {
         MyInput();
         Look();
-    }
+	}
 
 	private void LateUpdate()
 	{
@@ -172,15 +177,15 @@ public class PlayerMovement : MonoBehaviour {
         
         // Movement in air
         if (!grounded) {
-            multiplier = 0.5f;
-            multiplierV = 0.5f;
+            multiplier *= fallingModifier;
+            multiplierV *= fallingModifier;
         }
         
         // Movement while sliding
         if (grounded && crouching) multiplierV = 0f;
 
         //Apply forces to move player
-        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
+        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier);
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
     }
 
@@ -308,4 +313,11 @@ public class PlayerMovement : MonoBehaviour {
         grounded = false;
     }
     
+	//private void CheckGroundPhys()
+	//{
+	//	if (Physics.OverlapSphere(feet.position, groundThreshold, whatIsGround).Length > 0)
+	//	{
+	//		grounded = true;
+	//	}
+	//}
 }

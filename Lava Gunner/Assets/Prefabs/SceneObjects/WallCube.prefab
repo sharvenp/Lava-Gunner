@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7426457230065911699}
   - component: {fileID: 7426457230065911708}
   - component: {fileID: 255029771363844536}
+  - component: {fileID: 5865874244366703835}
   m_Layer: 6
   m_Name: WallCube
   m_TagString: Untagged
@@ -111,3 +112,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 0
+--- !u!65 &5865874244366703835
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7426457230065911709}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.1, z: 0.9}
+  m_Center: {x: 0, y: 0.5, z: 0}
