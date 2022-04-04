@@ -44,7 +44,7 @@ public class Cube : MonoBehaviour
 		{
 			return;
 		}
-		other.transform.parent = this.transform;
+		other.transform.parent = transform;
 	}
 
 	// when player leaves unparent this

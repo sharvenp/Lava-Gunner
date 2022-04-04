@@ -83,7 +83,7 @@ public class PlayerMovementContoller: MonoBehaviour
 
 	}
 
-	void StartGrapple()
+	public void StartGrapple()
 	{
 		if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, maxDistance, surface))
 		{
@@ -108,7 +108,7 @@ public class PlayerMovementContoller: MonoBehaviour
 		}
 	}
 	
-	void StopGrapple()
+	public void StopGrapple()
 	{
 		lr.positionCount = 0;
 		Destroy(joint);

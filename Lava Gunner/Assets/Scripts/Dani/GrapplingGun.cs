@@ -51,7 +51,7 @@ public class GrapplingGun : MonoBehaviour {
     /// <summary>
     /// Call whenever we want to start a grapple
     /// </summary>
-    void StartGrapple() {
+    public void StartGrapple() {
 
         gunAnimator.Play("Shoot", 0, 0);
         gunAudioSource.PlayOneShot(gunSound);
@@ -81,7 +81,7 @@ public class GrapplingGun : MonoBehaviour {
     /// <summary>
     /// Call whenever we want to stop a grapple
     /// </summary>
-    void StopGrapple() {
+    public void StopGrapple() {
         Destroy(joint);
     }
     

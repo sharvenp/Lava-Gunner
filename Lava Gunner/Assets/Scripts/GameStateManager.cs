@@ -30,7 +30,6 @@ public class GameStateManager : MonoBehaviour
         retryPanel.SetActive(false);
         msgPanel.SetActive(false);
         numWins = 0;
-        cubeFallSpeedWinDelta = 0.1f;
     }
 
 	private void Start()
@@ -88,6 +87,7 @@ public class GameStateManager : MonoBehaviour
         player.transform.position = playerStartPos;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<PlayerMovement>().grapplingGun.StopGrapple();
 
         scoreManager.StopTimer();
         scoreManager.StartTimer();
