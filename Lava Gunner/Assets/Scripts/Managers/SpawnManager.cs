@@ -27,7 +27,7 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator SpawnCube()
     {
-        while (gameStateManager.gameState == GameStateManager.gameStates.running)
+        while (gameStateManager == null || gameStateManager.gameState == GameStateManager.gameStates.running)
         {
             Spawn(470);
             yield return new WaitForSeconds(spawnDelay);

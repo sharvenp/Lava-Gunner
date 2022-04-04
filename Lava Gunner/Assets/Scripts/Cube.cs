@@ -18,7 +18,7 @@ public class Cube : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-		if (gameManager.gameState == GameStateManager.gameStates.running)
+		if (gameManager == null || gameManager.gameState == GameStateManager.gameStates.running)
 		{
 			transform.position += Vector3.down * fallSpeed * Time.deltaTime;
 			if (transform.position.y <= 0)
